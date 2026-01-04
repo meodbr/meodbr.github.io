@@ -44,3 +44,19 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+.navbar {
+  display: flex;
+  gap: 24px;
+  font-size: 0.95rem;
+  margin-bottom: 64px;
+}
+
+.navbar a {
+  color: #555;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  color: #000;
+}
