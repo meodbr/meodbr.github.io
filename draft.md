@@ -12,6 +12,8 @@ Outside of work, I enjoy sports and have a lifelong love for the mountains, havi
 
 Contact : meo.desbois@gmail.com
 
+## Experience
+
 ## Projects
 
 ## Events
