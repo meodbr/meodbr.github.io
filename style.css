@@ -7,13 +7,12 @@ body {
 }
 
 main {
-  max-width: 800px;
   margin: 80px auto;
   padding: 0 20px;
 }
 
 .container {
-  max-width: 720px;
+  max-width: 920px;
 }
 
 h1 {
@@ -74,4 +73,17 @@ a:hover {
 .social-links a:hover {
   color: #000;
   text-decoration: none;
+}
+
+.project {
+  max-height: 200px;
+}
+
+.project img {
+  border: 1px solid #eee;
+  max-height: 120px;
+}
+
+.project:hover img {
+  border-color: #ddd;
 }
