@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tensor Derivatives: Shape Intuition Cheat Sheet</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main class="container">
+
+<h1>Tensor Derivatives: Shape Intuition Cheat Sheet</h1>
+
+<div class="section">
+  <h2>Core Principle</h2>
+  <p>Let:</p>
+  <ul>
+    <li>Input tensor has shape <strong>S</strong></li>
+    <li>Output tensor has shape <strong>T</strong></li>
+  </ul>
+
+  <div class="math-block">
+    \[
+    \frac{\partial (\text{output})}{\partial (\text{input})}
+    \text{ has shape } T + S
+    \]
+  </div>
+
+  <p>("+" means concatenation of shapes)</p>
+</div>
+
+<div class="section">
+  <h2>Index-Based Rule (Most Reliable)</h2>
+
+  <p>Write derivatives with indices:</p>
+
+  <div class="math-block">
+    \[
+    \frac{\partial y_i}{\partial A_{j,k}}
+    \]
+  </div>
+
+  <p>The resulting tensor carries all indices:</p>
+  <ul>
+    <li>Output indices first</li>
+    <li>Input indices after</li>
+  </ul>
+
+  <p>This directly determines the shape.</p>
+</div>
+
+<div class="section">
+  <h2>Common Cases</h2>
+
+  <h3>1. Vector → Vector</h3>
+  <div class="math-block">
+    \[
+    f: \mathbb{R}^n \to \mathbb{R}^m
+    \quad \Rightarrow \quad
+    \frac{\partial f}{\partial x} \in \mathbb{R}^{m \times n}
+    \]
+  </div>
+  <p>(Standard Jacobian)</p>
+
+  <h3>2. Matrix → Vector</h3>
+  <div class="math-block">
+    \[
+    A \in \mathbb{R}^{m \times n}, \quad y = Ax \in \mathbb{R}^m
+    \]
+  </div>
+
+  <div class="math-block">
+    \[
+    \frac{\partial y}{\partial A} \in \mathbb{R}^{m \times m \times n}
+    \]
+  </div>
+
+  <p>(Indices: \(\frac{\partial y_i}{\partial A_{j,k}}\))</p>
+
+  <h3>3. Matrix → Scalar</h3>
+  <div class="math-block">
+    \[
+    L(A) \in \mathbb{R}
+    \quad \Rightarrow \quad
+    \frac{\partial L}{\partial A} \in \mathbb{R}^{m \times n}
+    \]
+  </div>
+
+  <p>(This is the gradient; same shape as \(A\))</p>
+</div>
+
+<div class="section">
+  <h2>Practical Rule (Most Used in ML)</h2>
+
+  <p>If the output is a scalar \(L\), then:</p>
+
+  <div class="math-block">
+    \[
+    \nabla_A L \text{ has the same shape as } A
+    \]
+  </div>
+</div>
+
+<div class="section">
+  <h2>Why Higher-Order Tensors Rarely Appear</h2>
+
+  <p>Full derivatives often produce higher-order tensors (e.g. 3D or more), but:</p>
+  <ul>
+    <li>In practice, we apply the <strong>chain rule</strong></li>
+    <li>This contracts dimensions and reduces back to the input shape</li>
+  </ul>
+
+  <p>Example:</p>
+
+  <div class="math-block">
+    \[
+    L = g(Ax)
+    \quad \Rightarrow \quad
+    \frac{\partial L}{\partial A} = \left(\frac{\partial L}{\partial y}\right) x^\top
+    \]
+  </div>
+</div>
+
+<div class="section">
+  <h2>Key Intuition</h2>
+
+  <p>Each derivative entry answers:</p>
+
+  <div class="math-block">
+    \[
+    \frac{\partial (\text{one output component})}{\partial (\text{one input component})}
+    \]
+  </div>
+
+  <p>The full derivative is just all such entries arranged into a tensor.</p>
+</div>
+
+<div class="section">
+  <h2>Reliable Strategy</h2>
+
+  <ol>
+    <li>Write a single entry:
+      <div class="math-block">
+        \[
+        \frac{\partial (\cdot)}{\partial (\text{one element})}
+        \]
+      </div>
+    </li>
+    <li>Track remaining indices</li>
+    <li>Reconstruct the full shape</li>
+  </ol>
+
+  <p>This method is always correct.</p>
+</div>
+
+</main>
+</body>
+</html>
