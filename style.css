@@ -81,7 +81,8 @@ a:hover {
 
 .project img {
   border: 1px solid #eee;
-  max-height: 120px;
+  height: 120px;
+  width: 120px;
 }
 
 .project:hover img {
